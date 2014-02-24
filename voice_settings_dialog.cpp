@@ -116,8 +116,6 @@ pxcCHAR *									VoiceSettingsDialog::LanguageToString(
 	{
 		case PXCVoiceRecognition::ProfileInfo::LANGUAGE_US_ENGLISH:
 			return L"US English";
-		case PXCVoiceRecognition::ProfileInfo::LANGUAGE_GB_ENGLISH:
-			return L"British English";
 		case PXCVoiceRecognition::ProfileInfo::LANGUAGE_FR_FRENCH:
 			return L"Français";
 	}

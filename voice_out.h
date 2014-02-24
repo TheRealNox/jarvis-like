@@ -21,13 +21,10 @@ protected:
 	PXCAudio::AudioData m_data[buffering];
 	PXCAudio*			m_samples[buffering];
 
-    // poor man's autogrowing bytestream
-    std::vector<byte>   m_wavefile;
+	int					m_nsamples;
+	HWAVEOUT			m_hwo;
 
-	int         m_nsamples;
-	HWAVEOUT	m_hwo;
-
-    WAVEFORMATEX m_wfx;
+    WAVEFORMATEX		m_wfx;
 
 public:
 
@@ -65,18 +62,6 @@ public:
 			waveOutWrite(m_hwo, &m_headers[k], sizeof(WAVEHDR));
 		}
 	}
-
-    void WriteAudio(PXCAudio *audio) {
-        PXCAudio::AudioData data;
-        pxcStatus sts = audio->AcquireAccess (PXCAudio::ACCESS_READ, PXCAudio::AUDIO_FORMAT_PCM, &data);
-        if (sts < PXC_STATUS_NO_ERROR) return;
-        pxcU32 dataSizeInBytes = data.dataSize * 2; // 2 bytes in each sample (16 bit samples)
-        for(pxcU32 i = 0; i < dataSizeInBytes; i++)
-        {
-            m_wavefile.push_back( data.dataPtr[i] );
-        }
-        audio->ReleaseAccess( &data );
-    }
 
 	~VoiceOut(void) {
 		if (!m_hwo || m_nsamples<=0) return;

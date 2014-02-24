@@ -26,6 +26,8 @@ Jarvis::Jarvis(QWidget *parent)
 	this->initActionsConnections();
 	this->initCommandsList();
 	this->setAttribute(Qt::WA_DeleteOnClose, true);
+	this->showMinimized();
+	this->_settingsDialog->show();
 }
 
 Jarvis::~Jarvis()
@@ -47,6 +49,7 @@ bool										Jarvis::initSDKSession()
 		QMessageBox::critical(this, tr("Critical Intel SDK Error"), "Failed to create an SDK session");
 		return false;
 	}
+
 	this->_settingsDialog->setSession(this->_session, _synth);
 	return true;
 }
@@ -148,7 +151,7 @@ void										Jarvis::onVoiceRecognized(PXCVoiceRecognition::Recognition data)
 			else if (QString::fromStdWString(data.dictation) == QString::fromStdWString(L"Redémarre")) {
 				this->speak(L"Votre ordinateur va redémarrer dans une minute"); system("C:\\Windows\\System32\\shutdown /r /t 60"); }
 			else if (QString::fromStdWString(data.dictation) == QString("Merci Jarvis")) {
-				this->speak(L"Je vais maintenant m'eteindre"); this->prepareToQuit();}
+				this->speak(L"Je vais maintenant m'éteindre"); this->prepareToQuit();}
 			//else
 			//QMessageBox::information(NULL, "Voice Recognation", QString("Sentence recognized: ")
 			//+ QString::fromStdWString(this->_cmds.at(data.nBest[i].label)));
