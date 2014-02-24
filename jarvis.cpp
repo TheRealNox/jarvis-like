@@ -1,6 +1,3 @@
-#include "jarvis.h"
-
-Jarvis::Jarvis(QWidget *parent)
 /*************************************************************************************************
 Copyright 2014 Nicolas AUBRY
 
@@ -17,6 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *************************************************************************************************/
 
+#include "jarvis.h"
+
+Jarvis::Jarvis(QWidget *parent)
 {
 	this->_ui.setupUi(this);
 	this->_settings = NULL;
