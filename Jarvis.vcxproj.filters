@@ -53,15 +53,6 @@
     <ClCompile Include="GeneratedFiles\qrc_jarvis.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="gesture_handler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_gesture_handler.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_gesture_handler.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="voice_pipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -118,9 +109,6 @@
     <CustomBuild Include="jarvis.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="gesture_handler.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="voice_settings_dialog.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
@@ -142,6 +130,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="voice_out.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
