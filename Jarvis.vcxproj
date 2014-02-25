@@ -139,7 +139,7 @@
     <ClInclude Include="defines.h" />
     <ClInclude Include="GeneratedFiles\ui_jarvis.h" />
     <ClInclude Include="GeneratedFiles\ui_voice_settings_dialog.h" />
-    <ClInclude Include="Sigleton.hpp" />
+    <ClInclude Include="singleton.hpp" />
     <ClInclude Include="voice_out.h" />
     <CustomBuild Include="voice_pipeline.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

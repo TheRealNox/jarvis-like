@@ -132,7 +132,7 @@
     <ClInclude Include="voice_out.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Sigleton.hpp">
+    <ClInclude Include="singleton.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
