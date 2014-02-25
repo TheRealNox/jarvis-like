@@ -11,6 +11,7 @@ Copyright(c) 2013 Intel Corporation. All Rights Reserved.
 #include <Windows.h>
 #include <vector>
 #include "pxcvoice.h"
+#include "singleton.hpp"
 
 class VoiceOut {
 protected:
@@ -79,3 +80,5 @@ public:
 		waveOutClose(m_hwo);
 	}
 };
+
+typedef Singleton<VoiceOut> VoiceOutSingleton;
