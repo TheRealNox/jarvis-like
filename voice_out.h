@@ -80,5 +80,3 @@ public:
 		waveOutClose(m_hwo);
 	}
 };
-
-typedef Singleton<VoiceOut> VoiceOutSingleton;

@@ -91,6 +91,7 @@ void										Jarvis::initActionsConnections()
 void										Jarvis::initCommandsList()
 {
 	this->_cmds.push_back(std::wstring(L"Redémarre"));
+	this->_cmds.push_back(std::wstring(L"Annule le redémarrage"));
 	this->_cmds.push_back(std::wstring(L"Merci Jarvis"));
 	this->_cmds.push_back(std::wstring(L"Va sur Google"));
 	this->_cmds.push_back(std::wstring(L"Ouvre iTunes"));
@@ -148,6 +149,8 @@ void										Jarvis::onVoiceRecognized(PXCVoiceRecognition::Recognition data)
 				QProcess::startDetached(QString("C:\\Program Files (x86)\\iTunes\\iTunes.exe"), QStringList(), QString(""));
 			else if (QString::fromStdWString(data.dictation) == QString("Suce des queues")) {
 				QDesktopServices::openUrl(QUrl("http://www.youporn.com")); this->speak(L"Et bien bravo mon salaud");}
+			else if (QString::fromStdWString(data.dictation) == QString::fromStdWString(L"Annule le redémarrage")) {
+				this->speak(L"Redémarrage annulé"); system("C:\\Windows\\System32\\shutdown /a"); }
 			else if (QString::fromStdWString(data.dictation) == QString::fromStdWString(L"Redémarre")) {
 				this->speak(L"Votre ordinateur va redémarrer dans une minute"); system("C:\\Windows\\System32\\shutdown /r /t 60"); }
 			else if (QString::fromStdWString(data.dictation) == QString("Merci Jarvis")) {
