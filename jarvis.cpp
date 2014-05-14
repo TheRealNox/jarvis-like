@@ -90,6 +90,7 @@ void										Jarvis::initActionsConnections()
 
 void										Jarvis::initCommandsList()
 {
+	this->_cmds.push_back(std::wstring(L"éteindre"));
 	this->_cmds.push_back(std::wstring(L"Redémarre"));
 	this->_cmds.push_back(std::wstring(L"Annule le redémarrage"));
 	this->_cmds.push_back(std::wstring(L"Merci Jarvis"));
@@ -117,22 +118,17 @@ void										Jarvis::setSettings(VoiceSettingsDialog::Settings *settings)
 
 void										Jarvis::onVoiceRecognized(PXCVoiceRecognition::Recognition data)
 {
+
+	// TODO:
+	// Thread every actions to be taken in order to free the voice pipeline asap
+	//
+
 	qDebug() << "Jarvis Thread: " << QThread::currentThread();
 	qDebug() << "recognition data size: " << sizeof(data);
 	if (data.label<0)
 	{
-		//QString tmp = QString::fromStdWString(data.dictation);
-		//if (QString::fromStdWString(data.dictation) == QString("Va sur Google"))
-		//	QDesktopServices::openUrl(QUrl("http://www.google.com"));
-		//else if (QString::fromStdWString(data.dictation) == QString("Suce des queues"))
-		//	QDesktopServices::openUrl(QUrl("http://www.youporn.com"));
-		//else if (QString::fromStdWString(data.dictation) == QString("Ouvre iTunes"))
-		//	QProcess::startDetached(QString("C:\\Program Files (x86)\\iTunes\\iTunes.exe"), QStringList(), QString(""));
-		//else if (QString::fromStdWString(data.dictation) == QString("Bonjour"))
-		//	system("C:\\Windows\\System32\\shutdown /r /t 2");
-		//else
-			QMessageBox::information(NULL, "Voice Recognation", QString("Sentence recognized: "
-			+ QString::fromWCharArray(data.dictation)));
+		QMessageBox::information(NULL, "Voice Recognation", QString("Sentence recognized: "
+		+ QString::fromWCharArray(data.dictation)));
 	}
 	else
 	{
@@ -144,17 +140,19 @@ void										Jarvis::onVoiceRecognized(PXCVoiceRecognition::Recognition data)
 			if (data.nBest[i].label < this->_cmds.size())
 				tmp = QString::fromStdWString(this->_cmds.at(data.nBest[i].label));
 			if (tmp == QString("Va sur Google")) {
-				QDesktopServices::openUrl(QUrl("http://www.google.com")); this->speak(L"Oui maitre");}
-			else if (QString::fromStdWString(data.dictation) == QString("Ouvre iTunes"))
-				QProcess::startDetached(QString("C:\\Program Files (x86)\\iTunes\\iTunes.exe"), QStringList(), QString(""));
+				QDesktopServices::openUrl(QUrl("http://www.google.com")); this->speak(L"Oui maitre"); break;}
+			else if (QString::fromStdWString(data.dictation) == QString("Ouvre iTunes")) {
+				QProcess::startDetached(QString("C:\\Program Files (x86)\\iTunes\\iTunes.exe"), QStringList(), QString("")); this->speak(L"Let's grouve tounaillte!"); break;}
 			else if (QString::fromStdWString(data.dictation) == QString("Suce des queues")) {
-				QDesktopServices::openUrl(QUrl("http://www.youporn.com")); this->speak(L"Et bien bravo mon salaud");}
+				QDesktopServices::openUrl(QUrl("http://www.youporn.com")); this->speak(L"Et bien bravo mon salaud"); break;}
 			else if (QString::fromStdWString(data.dictation) == QString::fromStdWString(L"Annule le redémarrage")) {
-				this->speak(L"Redémarrage annulé"); system("C:\\Windows\\System32\\shutdown /a"); }
+				this->speak(L"Redémarrage annulé"); system("C:\\Windows\\System32\\shutdown /a");  break;}
 			else if (QString::fromStdWString(data.dictation) == QString::fromStdWString(L"Redémarre")) {
-				this->speak(L"Votre ordinateur va redémarrer dans une minute"); system("C:\\Windows\\System32\\shutdown /r /t 60"); }
+				this->speak(L"Votre ordinateur va redémarrer dans une minute"); system("C:\\Windows\\System32\\shutdown /r /t 60");  break;}
+			else if (QString::fromStdWString(data.dictation) == QString::fromStdWString(L"éteindre")) {
+				this->speak(L"Votre ordinateur va s'éteindre dans 10 secondes"); system("C:\\Windows\\System32\\shutdown /s /t 10");  break;}
 			else if (QString::fromStdWString(data.dictation) == QString("Merci Jarvis")) {
-				this->speak(L"Je vais maintenant m'éteindre"); this->prepareToQuit();}
+				this->speak(L"Je vais maintenant m'éteindre"); this->prepareToQuit(); break;}
 			//else
 			//QMessageBox::information(NULL, "Voice Recognation", QString("Sentence recognized: ")
 			//+ QString::fromStdWString(this->_cmds.at(data.nBest[i].label)));
@@ -162,6 +160,8 @@ void										Jarvis::onVoiceRecognized(PXCVoiceRecognition::Recognition data)
 	}
 }
 
+// TODO
+// Thread Singleton
 void										Jarvis::speak(pxcCHAR* sentence)
 {
 	PXCSession::ImplDesc desc;
