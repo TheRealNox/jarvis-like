@@ -96,7 +96,7 @@ void										Jarvis::initCommandsList()
 	this->_cmds.push_back(std::wstring(L"Merci Jarvis"));
 	this->_cmds.push_back(std::wstring(L"Va sur Google"));
 	this->_cmds.push_back(std::wstring(L"Ouvre iTunes"));
-	this->_cmds.push_back(std::wstring(L"Suce des queues"));
+	this->_cmds.push_back(std::wstring(L"Vidéo en ligne"));
 }
 
 void										Jarvis::setSettings(VoiceSettingsDialog::Settings *settings)
@@ -143,8 +143,8 @@ void										Jarvis::onVoiceRecognized(PXCVoiceRecognition::Recognition data)
 				QDesktopServices::openUrl(QUrl("http://www.google.com")); this->speak(L"Oui maitre"); break;}
 			else if (QString::fromStdWString(data.dictation) == QString("Ouvre iTunes")) {
 				QProcess::startDetached(QString("C:\\Program Files (x86)\\iTunes\\iTunes.exe"), QStringList(), QString("")); this->speak(L"Let's grouve tounaillte!"); break;}
-			else if (QString::fromStdWString(data.dictation) == QString("Suce des queues")) {
-				QDesktopServices::openUrl(QUrl("http://www.youporn.com")); this->speak(L"Et bien bravo mon salaud"); break;}
+			else if (QString::fromStdWString(data.dictation) == QString("Vidéo en ligne")) {
+				QDesktopServices::openUrl(QUrl("http://www.youtube.com")); this->speak(L"Et bien bravo mon salaud"); break;}
 			else if (QString::fromStdWString(data.dictation) == QString::fromStdWString(L"Annule le redémarrage")) {
 				this->speak(L"Redémarrage annulé"); system("C:\\Windows\\System32\\shutdown /a");  break;}
 			else if (QString::fromStdWString(data.dictation) == QString::fromStdWString(L"Redémarre")) {
